@@ -9,17 +9,15 @@ public class StoreTest {
         Store store = new Store();
 
         // Create some DVD instances
-        DigitalVideoDisc dvd1 = new DigitalVideoDisc("Inception", "Science Fiction", "Christopher Nolan", 148, 19.99f);
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Interstellar", "Science Fiction", "Christopher Nolan", 169, 24.99f);
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("The Matrix", "Action", "Wachowskis", 136, 14.99f);
-        DigitalVideoDisc dvd4 = new DigitalVideoDisc("Avatar", "Fantasy", "James Cameron", 162, 22.50f);
+        DigitalVideoDisc dvd1 = new DigitalVideoDisc("Inception", "Science Fiction", 19.99f, 148, "Christopher Nolan");
+        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Interstellar", "Science Fiction", 24.99f, 169, "Christopher Nolan");
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("The Matrix", "Action", 14.99f, 136, "Wachowskis");
+        DigitalVideoDisc dvd4 = new DigitalVideoDisc("Avatar", "Fantasy", 22.50f, 162, "James Cameron");
 
-        store.addMedia(dvd3, dvd2);
-        store.print();
+        store.addMedia(dvd2);
+        store.addMedia(dvd4);
         store.removeMedia(dvd3);
         store.removeMedia(dvd3);
-        
-        store.print();
         
     }
 }
