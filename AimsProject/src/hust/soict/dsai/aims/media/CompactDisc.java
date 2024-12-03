@@ -4,69 +4,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompactDisc extends Disc implements Playable {
-    private String artist;
-    private List<Track> tracks = new ArrayList<Track>();
-
-    public CompactDisc() {
-        super();
-    }
-
-    //Getter
-    public String getArtist() {
-        return artist;
-    }
-
-
-    //Constructor
-    public CompactDisc(int id, String title, String category, float price, String director, int length, String artist, List<Track> tracks) {
-        super(id, title, category, price, director, length);
-        artist = artist;
-        this.tracks = tracks;
-    }
-
-    public CompactDisc(int id, String title, String artist, List<Track> tracks) {
-        super(id, title);
-        this.artist = artist;
-        this.tracks = tracks;
-    }
-
-    public CompactDisc(int id, String title, String category, float price, String artist, List<Track> tracks) {
-        super(id, title, category, price);
-        this.artist = artist;
-        this.tracks = tracks;
-    }
-
-    //
-    public void addTrack(Track ... trackList){
-        for(Track track : trackList) {
-            if (!tracks.contains(track)) tracks.add(track);
-        }
-    }
-
-    public void removeTrack(Track ... trackList){
-        for(Track track : trackList) {
-            if (tracks.contains(track)) tracks.remove(track);
-            else System.out.println("TrackList "+ getId() +" does not have track " + track.getTitle());
-        }
-    }
-
-    public int getLength(){
-        int length = 0;
-        for(Track track : tracks){
-            length+= track.getLength();
-        }
-        return length;
-    }
-
-    @Override
-    public void play() {
-        System.out.println("Playing DVD: " + getTitle());
-        System.out.println("DVD length: " + getLength());
-    }
-
-    @Override
-    public String toString(){
-        return "DVD ["+ getTitle() + " - " + getCategory() + " - " + getDirector() + " - " + getLength()/60+":"+ getLength()%60+ "]: "+ getPrice();
-    }
+	private String artist;
+	private List<Track> tracks = new ArrayList<Track>();
+	private static int nbCompactDiscs = 0;
+	
+	public CompactDisc(String title, String category, double cost, int length, String director,
+			           String artist, List<Track> tracks) {
+		super(++nbCompactDiscs, title, category, cost, length, director);
+		this.artist = artist;
+		this.tracks = tracks;
+	}
+	
+	public String getArtist() {
+		return this.artist;
+	}
+	
+	public void addTrack(Track track) {
+		if(tracks.contains(track)) {
+			System.out.println("Track with title " + track.getTitle() + " has already in the list!");
+		}
+		else {
+			tracks.add(track);
+			System.out.println("Add successfully!");
+		}
+	}
+	
+	public void removeTrack(Track track) {
+		if(tracks.contains(track)) {
+			tracks.remove(track);
+			System.out.println("Remove successfully!");
+		}
+		else {
+			System.out.println("Track with title " + track.getTitle() + "has not in the list yet!");
+		}
+	}
+	
+	@Override
+	public int getLength() {
+		int totalLength = 0;
+		for(Track t : tracks) {
+			totalLength += t.getLength();
+		}
+		return totalLength;
+	}
+	
+	@Override
+	public void play() {
+		System.out.println("CD's title: " + super.getTitle());
+		System.out.println("Total length: " + this.getLength());
+		for(Track t : tracks) {
+			t.play();
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "CD " + super.toString()
+				+ " - Artist: " + this.artist
+		        + " - Track: " + this.tracks.toString();
+	}
 
 }

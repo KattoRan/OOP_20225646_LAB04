@@ -1,10 +1,10 @@
 package hust.soict.dsai.aims.media;
 import java.util.Comparator;
 
-public class CostTitleComparator implements Comparator<Media> {
+public class MediaComparatorByCostTitle implements Comparator<Media> {
     @Override
     public int compare(Media m1, Media m2) {
-        int costComparison = Float.compare(m2.getPrice(), m1.getPrice());
+        int costComparison = Double.compare(m2.getPrice(), m1.getPrice());
         if (costComparison != 0) {
             return costComparison;
         }
