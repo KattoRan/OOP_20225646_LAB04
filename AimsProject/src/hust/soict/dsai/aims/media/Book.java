@@ -6,30 +6,44 @@ public class Book extends Media {
     private List<String> authors = new ArrayList<String>();
     private static int nbBooks = 0;
     //Constructor
-    public Book(int id, String title, String category, float price, List<String> authors) {
-        super(id, title,category,price);
-        this.authors = authors;
-        nbBooks++;
-    }
-    public Book() {
-    }
-    public void AddAuthor(String ... author){
-        for (String a : author){
-            if (!authors.contains(a)) authors.add(a);
-        }
-    }
+    public Book(String title, String category, double cost,
+			   List<String> authors) {
+		super(nbBooks++, title, category, cost);
+		this.authors = authors;
+	}
+    public List<String> getAuthors() {
+		return authors;
+	}
 
-    public void RemoveAuthor(String ... author){
-        for (String a : author){
-            if (authors.contains(a)) authors.remove(a);
-            else System.out.println("Book "+ getId() +" does not have author " + a);
-        }
-    }
+	public void setAuthors(List<String> authors) {
+		this.authors = authors;
+	}
 
-    @Override
-    public String toString() {
-        return "Book [" + getTitle() + " - " + getCategory() + " - " + authors + "]: " + getPrice();
-    }
+	public void addAuthor(String authorName) {
+		if(!authors.contains(authorName)) {
+			authors.add(authorName);
+			System.out.println(authorName + "has been added to the list!");
+		}
+		else {
+			System.out.println(authorName + "has already in the list!");
+		}
+	}
+	
+	public void removeAuthor(String authorName) {
+		if(authors.contains(authorName)) {
+			authors.remove(authorName);
+			System.out.println(authorName + "has been removed from the list!");
+		}
+		else {
+			System.out.println(authorName + "does not exist!");
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Book " + super.toString()
+				+ " - Authors: " + this.getAuthors();
+	}
 
 
 }

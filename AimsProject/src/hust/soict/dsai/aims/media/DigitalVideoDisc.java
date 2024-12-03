@@ -1,74 +1,32 @@
 package hust.soict.dsai.aims.media;
 
 public class DigitalVideoDisc extends Disc implements Playable {
-    private String image;
-    private String detail;
-    private String demoLink;
-    private static int nbDigitalVideoDiscs = 1;
-    //Getter and Setter
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String getDemoLink() {
-        return demoLink;
-    }
-
-    public void setDemoLink(String demoLink) {
-        this.demoLink = demoLink;
-    }
-
-
-
-    //Constructor
-
-    public DigitalVideoDisc(String title, String category, float price, String image, String detail, String director, int length, String demoLink) {
-
-        super(nbDigitalVideoDiscs, title, category, price, director, length);
-        this.image = image;
-        this.detail = detail;
-        this.demoLink = demoLink;
-
-    }
-
-    public DigitalVideoDisc(String title){
-        super(nbDigitalVideoDiscs, title);
-        nbDigitalVideoDiscs++;
-    }
-
-    public DigitalVideoDisc(String title, String category, String director, int length, float price) {
-        super(nbDigitalVideoDiscs, title, category, price, director, length);
-        nbDigitalVideoDiscs++;
-    }
-
-    public DigitalVideoDisc(String title, String category, float price) {
-        super(nbDigitalVideoDiscs, title,category, price);
-        nbDigitalVideoDiscs++;
-    }
-    public DigitalVideoDisc() {
-    }
-    @Override
-    public void play() {
-        System.out.println("Playing DVD: " + getTitle());
-        System.out.println("DVD length: " + getLength());
-    }
-
-    @Override
-    public String toString(){
-        return "DVD ["+ getTitle() + " - " + getCategory() + " - " + getDirector() + " - " + getLength()/60+":"+ getLength()%60+ "]: "+ getPrice();
-    }
+private static int nbDigitalVideoDiscs = 0;
+	
+	public DigitalVideoDisc(String title, String category, double d, int length, String director) {
+		super(++nbDigitalVideoDiscs, title, category, d, length, director);		
+	}
+	
+	public String toString() {
+		return "DVD " + super.toString();
+	}
+	
+	public boolean isMatch(String keywords) {
+		String[] splitKeywords = keywords.toLowerCase().split("\\s+");
+		String toLowerTitle = super.getTitle().toLowerCase();
+		
+		for(String s : splitKeywords) {
+			if(toLowerTitle.contains(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public void play() {
+		System.out.println("Playing DVD: " + this.getTitle());
+		System.out.println("DVD length: " + this.getLength());
+	}
 
 }
